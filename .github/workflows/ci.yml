@@ -23,3 +23,13 @@ jobs:
         run: |
          cd frontend
          npm install
+
+         # Étape 4 : Builder l'application Angular
+      - name: Build Angular project
+        run: |
+          cd frontend
+          npm run build
+
+        # Étape 5 : Exécuter les tests PHP
+      - name: Run PHP tests
+        run: vendor/bin/phpunit 
