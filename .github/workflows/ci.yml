@@ -1,0 +1,41 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Récupérer le code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Étape 2 : Installer les dépendances PHP
+      - name: Install PHP dependencies
+        run: composer install
+
+      # Étape 3 : Installer les dépendances Angular
+      - name: Install Angular dependencies
+        run: |
+          cd frontend
+          npm install
+
+      # Étape 4 : Builder Angular
+      - name: Build Angular
+        run: |
+          cd frontend
+          npm run build
+
+      # Étape 5 : Exécuter les tests PHP
+      - name: Run PHP tests
+        run: vendor/bin/phpunit
+
+      # Étape 6 : Exécuter les tests Angular
+      - name: Run Angular tests
+        run: |
+          cd frontend
+          npm run test
