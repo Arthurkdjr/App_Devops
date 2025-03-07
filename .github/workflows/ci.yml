@@ -33,3 +33,13 @@ jobs:
         # Étape 5 : Exécuter les tests PHP
       - name: Run PHP tests
         run: vendor/bin/phpunit 
+
+        # Étape 6 : Exécuter les tests Angular
+      - name: Run Angular tests
+        run: |
+         cd frontend
+         npm run test
+
+      - name: Package application
+        run: |
+           zip -r application.zip . -x "node_modules/*" "vendor/*
