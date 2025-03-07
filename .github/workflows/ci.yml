@@ -43,3 +43,7 @@ jobs:
       - name: Package application
         run: |
            zip -r application.zip . -x "node_modules/*" "vendor/*
+
+      - name: Build Docker image
+        run: 
+         docker build -t my-app:latest .
