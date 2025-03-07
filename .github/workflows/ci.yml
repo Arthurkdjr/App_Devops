@@ -17,3 +17,9 @@ jobs:
     # Étape 2 : Installer les dépendances PHP
       - name: Install PHP dependencies
         run: composer install
+        
+         # Étape 3 : Installer les dépendances Angular
+      - name: Install Angular dependencies
+        run: |
+         cd frontend
+         npm install
