@@ -21,8 +21,10 @@ jobs:
          # Étape 3 : Installer les dépendances Angular
       - name: Install Angular dependencies
         run: |
-         cd ./frontend/package.json
-         npm install
+         cd ./frontend 
+          npm install
+
+        
 
          # Étape 4 : Builder l'application Angular
       - name: Build Angular project
