@@ -1,0 +1,17 @@
+{
+    "name": "akodj/frontend",
+    "type": "project",
+    "require": {
+        "laravel/framework": "^8.2.12",
+        "symfony/framework-bundle": "^5.2",
+        "doctrine/dbal": "^2.0",
+        "phpunit/phpunit": "^11.5"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Akodj\\Frontend\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
