@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app  # Nom du déploiement
+  namespace: default  # Namespace Kubernetes (par défaut : "default")
+  labels:
+    app: my-app  # Étiquette pour identifier ce déploiement
+spec:
+  replicas: 3  # Nombre de réplicas (copies) de l'application
+  selector:
+    matchLabels:
+      app: my-app  # Sélectionne les pods avec cette étiquette
+  template:
+    metadata:
+      labels:
+        app: my-app  # Étiquette pour les pods créés par ce déploiement
+    spec:
+      containers:
+        - name: my-app  # Nom du conteneur
+          image: my-app:latest  # Image Docker à utiliser
+          ports:
+            - containerPort: 80  # Port exposé par le conteneur
+          env:
+            - name: ENV_VAR_NAME  # Variable d'environnement (exemple)
+              value: "env_var_value"
+          resources:
+            requests:
+              cpu: "100m"  # Demande de CPU (100 milliCPU)
+              memory: "128Mi"  # Demande de mémoire (128 Mio)
+            limits:
+              cpu: "500m"  # Limite de CPU (500 milliCPU)
+              memory: "512Mi"  # Limite de mémoire (512 Mio)

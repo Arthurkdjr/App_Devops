@@ -1,0 +1,81 @@
+stages:
+  - install
+  - build
+  - test
+  - deploy
+
+# Étape 1 : Installer les dépendances PHP
+install_php:
+  stage: install
+  image: composer:2
+  script:
+    - cd backend
+    - composer install
+  artifacts:
+    paths:
+      - backend/vendor/
+
+# Étape 2 : Installer les dépendances Angular
+install_angular:
+  stage: install
+  image: node:18
+  script:
+    - cd frontend
+    - npm install
+  artifacts:
+    paths:
+      - frontend/node_modules/
+
+# Étape 3 : Builder l'application Angular
+build_angular:
+  stage: build
+  image: node:18
+  script:
+    - cd frontend
+    - npm run build
+  artifacts:
+    paths:
+      - frontend/dist/
+
+# Étape 4 : Exécuter les tests PHP
+test_php:
+  stage: test
+  image: php:7.4
+  script:
+    - cd backend
+    - vendor/bin/phpunit
+
+
+# Étape 5 : Exécuter les tests Angular
+test_angular:
+  stage: test
+  image: node:18
+  script:
+    - cd frontend
+    - npm run test
+
+
+
+
+# Étape 6 : Construire l'image Docker
+build_docker:
+  stage: deploy
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t my-app:latest .
+  only:
+    - main
+
+
+  # Étape 7 : Déployer l'application (exemple avec Kubernetes)
+deploy:
+    stage: deploy
+    image: bitnami/kubectl:latest
+    script:
+      - echo "Déploiement sur Kubernetes..."
+      - kubectl apply -f k8s/deployment.yaml
+      - kubectl apply -f k8s/service.yaml
+    only:
+      - main
