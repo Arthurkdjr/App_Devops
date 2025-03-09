@@ -3,7 +3,7 @@ FROM php:7.4-apache
 WORKDIR /var/www/html
 
 # Copie les fichiers PHP
-COPY . .
+COPY package.json package-lock.json ./
 
 # Installe les extensions PHP nécessaires
 RUN docker-php-ext-install pdo_mysql
