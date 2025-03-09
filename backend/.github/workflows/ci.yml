@@ -1,0 +1,36 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Récupérer le code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Étape 2 : Installer les dépendances PHP
+      - name: Install PHP dependencies
+        run: composer install
+
+      # Étape 3 : Donner les droits d'exécution à PHPUnit (facultatif si on utilise php ...)
+      - name: Set execute permission for phpunit
+        run: chmod +x vendor/bin/phpunit
+
+      # Étape 4 : Exécuter les tests
+      - name: Run PHPUnit tests
+        run: php vendor/bin/phpunit
+
+      # Étape 5 : Packager l'application
+      - name: Package application
+        run: |
+          zip -r application.zip . -x "node_modules/*" "vendor/*"
+
+      # Étape 6 : Construire l'image Docker
+      - name: Build Docker image
+        run: docker build -t my-app:latest .
