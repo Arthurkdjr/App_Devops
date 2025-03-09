@@ -21,7 +21,7 @@ jobs:
          # Étape 3 : Installer les dépendances Angular
       - name: Install Angular dependencies
         run: |
-         cd ./frontend 
+         cd frontend 
           npm install
 
         
