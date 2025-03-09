@@ -18,6 +18,26 @@ services:
     networks:
       - app-network
 
+  prometheus:
+    image: prom/prometheus  # Image pour Prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring  # Réseau pour Prometheus
+
+  grafana:
+    image: grafana/grafana  # Image pour Grafana
+    ports:
+      - "3001:3000"
+    depends_on:
+      - prometheus  # Grafana dépend de Prometheus
+    networks:
+      - monitoring  # Réseau pour Grafana
+
 networks:
   app-network:
+    driver: bridge
+  monitoring:
     driver: bridge

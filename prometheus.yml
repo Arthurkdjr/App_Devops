@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 15s  # Fréquence de collecte des métriques
+
+scrape_configs:
+  - job_name: 'my-app'
+    static_configs:
+      - targets: ['backend:80']  # Cible pour collecter les métriques du backend
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']  # Cible pour collecter les métriques de Prometheus lui-même
